@@ -1,0 +1,37 @@
+RealisticVision:
+  inference_config: "configs/inference/inference-v2.yaml"
+  motion_module:
+    # - "models/Motion_Module/mm_sd_v14.ckpt"
+    - "/mnt/petrelfs/sichenyang.p/code/diffsuion/git_code/AnimateDiff/AnimateDiff/models/Motion_Module/mm_sd_v15_v2.ckpt"
+
+  # dreambooth_path: "models/DreamBooth_LoRA/realisticVisionV20_v20.safetensors"
+  dreambooth_path: "/mnt/petrelfs/sichenyang.p/code/diffsuion/git_code/AnimateDiff/AnimateDiff/models/DreamBooth_LoRA/realisticVisionV20_v20.safetensors"
+  lora_model_path: ""
+
+  seed:           [9620, 913, 6840, 1334]
+  steps:          25
+  guidance_scale: 7.5
+
+  filter_params:
+    method: 'butterworth'
+    n: 4
+    d_s: 0.25
+    d_t: 0.25
+
+  # filter_params:
+  #   method: 'gaussian'
+  #   d_s: 0.25
+  #   d_t: 0.25
+
+  prompt:
+    - "A panda cooking in the kitchen"
+    - "A cat wearing sunglasses and working as a lifeguard at a pool."
+    - "A confused panda in calculus class"
+    - "A robot DJ is playing the turntable, in heavy raining futuristic tokyo rooftop cyberpunk night, sci-fi, fantasy"
+
+  n_prompt:
+    - ""
+    - ""
+    - ""
+    - ""
+
