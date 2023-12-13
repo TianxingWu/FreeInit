@@ -1,6 +1,6 @@
 # FreeInit : Bridging Initialization Gap in Video Diffusion Models
 
-[![Paper](https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=b31b1b)](https://arxiv.org/abs/xxxxx)
+[![Paper](https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=b31b1b)](https://arxiv.org/abs/2312.07537)
 [![Project Page](https://img.shields.io/badge/Project-Website-5B7493?logo=googlechrome&logoColor=5B7493)](https://tianxingwu.github.io/pages/FreeInit/)
 [![Video](https://img.shields.io/badge/YouTube-Video-red?logo=youtube&logoColor=red)](https://youtu.be/lS5IYbAqriI)
 [![Visitor](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTianxingWu%2FFreeInit&count_bg=%23678F74&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
@@ -27,7 +27,7 @@ We propose **FreeInit**, a concise yet effective method to improve temporal cons
 
 
 ## :fire: Updates
-<!-- - [03/2023] [Arxiv paper](https://arxiv.org/abs/xxxx) available. -->
+- [03/2023] [Arxiv paper](https://arxiv.org/abs/2312.07537) available.
 - [12/2023] Code released.
 - [12/2023] [Project page](https://tianxingwu.github.io/pages/FreeInit/) and [video](https://youtu.be/lS5IYbAqriI) available.
 
@@ -95,7 +95,7 @@ Please refer to our [project page](https://tianxingwu.github.io/pages/FreeInit/)
    @article{wu2023freeinit,
         title={FreeInit: Bridging Initialization Gap in Video Diffusion Models},
         author={Wu, Tianxing and Si, Chenyang and Jiang, Yuming and Huang, Ziqi and Liu, Ziwei},
-        journal={arXiv preprint arXiv:xxxxxxx},
+        journal={arXiv preprint arXiv:2312.07537},
         year={2023}
    ```
 
