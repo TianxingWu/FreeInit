@@ -75,7 +75,7 @@ python -m scripts.animate_with_freeinit \
     --save_intermediate \
     --use_fp16 \
 ```
-where `num_iters` is the number of freeinit iterations. We recommand to use 3-5 iterations for a balance between the quality and efficiency. For faster inference, the argument `use_fast_sampling` can be enabled to use the *Coarse-to-Fine Sampling* strategy, which may lead to inferior results.
+where `num_iters` is the number of freeinit iterations. We recommend to use 3-5 iterations for a balance between the quality and efficiency. For faster inference, the argument `use_fast_sampling` can be enabled to use the *Coarse-to-Fine Sampling* strategy, which may lead to inferior results.
 
 You can change the text prompts in the config file. To tune the frequency filter parameters for better results, please change the `filter_params` settings in the config file. The `'butterworth'` filter with `n=4, d_s=d_t=0.25` is set as default. For base models with larger temporal inconsistencies, please consider using the `'guassian'` filter.
 
