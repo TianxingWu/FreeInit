@@ -27,7 +27,7 @@ We propose **FreeInit**, a concise yet effective method to improve temporal cons
 
 
 ## :fire: Updates
-- [03/2023] [Arxiv paper](https://arxiv.org/abs/2312.07537) available.
+- [12/2023] [Arxiv paper](https://arxiv.org/abs/2312.07537) available.
 - [12/2023] Code released.
 - [12/2023] [Project page](https://tianxingwu.github.io/pages/FreeInit/) and [video](https://youtu.be/lS5IYbAqriI) available.
 
