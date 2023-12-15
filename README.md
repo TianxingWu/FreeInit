@@ -51,7 +51,7 @@ Please refer to the above scripts as a reference when intergrating FreeInit into
 ```
 git clone https://github.com/TianxingWu/FreeInit.git
 cd FreeInit
-cd example/AnimateDiff
+cd examples/AnimateDiff
 ```
 
 ### 2. Prepare Environment
