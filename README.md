@@ -3,6 +3,7 @@
 [![Paper](https://img.shields.io/badge/arXiv-Paper-b31b1b?logo=arxiv&logoColor=b31b1b)](https://arxiv.org/abs/2312.07537)
 [![Project Page](https://img.shields.io/badge/Project-Website-5B7493?logo=googlechrome&logoColor=5B7493)](https://tianxingwu.github.io/pages/FreeInit/)
 [![Video](https://img.shields.io/badge/YouTube-Video-red?logo=youtube&logoColor=red)](https://youtu.be/lS5IYbAqriI)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Demo-%20Hugging%20Face-ED7D31)](https://huggingface.co/spaces/TianxingWu/FreeInit)
 [![Visitor](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTianxingWu%2FFreeInit&count_bg=%23678F74&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
 
@@ -27,6 +28,7 @@ We propose **FreeInit**, a concise yet effective method to improve temporal cons
 
 
 ## :fire: Updates
+- [12/2023] :fire: We released a demo on [Hugging Face🤗](https://huggingface.co/spaces)! Feel free to try it out: [[demo link]](https://huggingface.co/spaces/TianxingWu/FreeInit) .
 - [12/2023] [Arxiv paper](https://arxiv.org/abs/2312.07537) available.
 - [12/2023] Code released.
 - [12/2023] [Project page](https://tianxingwu.github.io/pages/FreeInit/) and [video](https://youtu.be/lS5IYbAqriI) available.
@@ -73,7 +75,7 @@ python -m scripts.animate_with_freeinit \
     --config "configs/prompts/freeinit_examples/RealisticVision_v2.yaml" \
     --num_iters 5 \
     --save_intermediate \
-    --use_fp16 \
+    --use_fp16
 ```
 where `num_iters` is the number of freeinit iterations. We recommend to use 3-5 iterations for a balance between the quality and efficiency. For faster inference, the argument `use_fast_sampling` can be enabled to use the *Coarse-to-Fine Sampling* strategy, which may lead to inferior results.
 
@@ -81,6 +83,15 @@ You can change the text prompts in the config file. To tune the frequency filter
 
 
 More `.yaml` files with different motion module / personalize T2I settings are also provided for testing.
+
+### 🤗 Gradio Demo
+
+We also provide a Gradio Demo to demonstrate our method with UI. Running the following command will launch the demo. Feel free to play around with the parameters to improve generation quality.
+
+```
+python app.py
+```
+Alternatively, you can try the online demo hosted on Hugging Face: [[demo link]](https://huggingface.co/spaces/TianxingWu/FreeInit) .
 
 ### :framed_picture: Generation Results
 
