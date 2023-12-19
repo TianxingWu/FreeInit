@@ -46,6 +46,11 @@ logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 class AnimationPipelineOutput(BaseOutput):
     videos: Union[torch.Tensor, np.ndarray]
 
+@dataclass
+class AnimationFreeInitPipelineOutput(BaseOutput):
+    videos: Union[torch.Tensor, np.ndarray]
+    orig_videos: Union[torch.Tensor, np.ndarray]
+
 
 class AnimationPipeline(DiffusionPipeline):
     _optional_components = []
@@ -464,7 +469,15 @@ class AnimationFreeInitPipeline(AnimationPipeline):
             height // self.vae_scale_factor, 
             width // self.vae_scale_factor
         ]
-        self.freq_filter = get_freq_filter(filter_shape, device=self._execution_device, params=filter_params)
+        # self.freq_filter = get_freq_filter(filter_shape, device=self._execution_device, params=filter_params)
+        self.freq_filter = get_freq_filter(
+            filter_shape, 
+            device=self._execution_device, 
+            filter_type=filter_params.method,
+            n=filter_params.n,
+            d_s=filter_params.d_s,
+            d_t=filter_params.d_t
+        )
 
     @torch.no_grad()
     def __call__(
@@ -488,6 +501,7 @@ class AnimationFreeInitPipeline(AnimationPipeline):
         num_iters: int = 5,
         use_fast_sampling: bool = False,
         save_intermediate: bool = False,
+        return_orig: bool = False,
         save_dir: str = None,
         save_name: str = None,
         use_fp16: bool = False,
@@ -503,6 +517,8 @@ class AnimationFreeInitPipeline(AnimationPipeline):
         width = width or self.unet.config.sample_size * self.vae_scale_factor
 
         # Check inputs. Raise error if not correct
+        # import pdb
+        # pdb.set_trace()
         self.check_inputs(prompt, height, width, callback_steps)
 
         # Define call parameters
@@ -556,8 +572,12 @@ class AnimationFreeInitPipeline(AnimationPipeline):
                 initial_noise = latents.detach().clone()
             else:
                 # 1. DDPM Forward with initial noise, get noisy latents z_T
-                diffuse_timestep = self.scheduler.config.num_train_timesteps - 1 # diffuse to t=999 noise level
-                diffuse_timesteps = torch.full((batch_size,),int(diffuse_timestep))
+                # if use_fast_sampling:
+                #     current_diffuse_timestep = self.scheduler.config.num_train_timesteps / num_iters * (iter + 1) - 1
+                # else:
+                #     current_diffuse_timestep = self.scheduler.config.num_train_timesteps - 1
+                current_diffuse_timestep = self.scheduler.config.num_train_timesteps - 1 # diffuse to t=999 noise level
+                diffuse_timesteps = torch.full((batch_size,),int(current_diffuse_timestep))
                 diffuse_timesteps = diffuse_timesteps.long()
                 z_T = self.scheduler.add_noise(
                     original_samples=latents.to(device), 
@@ -580,7 +600,13 @@ class AnimationFreeInitPipeline(AnimationPipeline):
             # Denoising loop
             num_warmup_steps = len(timesteps) - num_inference_steps * self.scheduler.order
             with self.progress_bar(total=num_inference_steps) as progress_bar:
-                for i, t in enumerate(timesteps):
+                # if use_fast_sampling:
+                #     # Coarse-to-Fine Sampling for Fast Inference
+                #     current_num_inference_steps= int(num_inference_steps / num_iters * (iter + 1))
+                #     current_timesteps = timesteps[:current_num_inference_steps]
+                # else:
+                current_timesteps = timesteps
+                for i, t in enumerate(current_timesteps):
                     # expand the latents if we are doing classifier free guidance
                     latent_model_input = torch.cat([latents] * 2) if do_classifier_free_guidance else latents
                     latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
@@ -597,7 +623,7 @@ class AnimationFreeInitPipeline(AnimationPipeline):
                     latents = self.scheduler.step(noise_pred, t, latents, **extra_step_kwargs).prev_sample
 
                     # call the callback, if provided
-                    if i == len(timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
+                    if i == len(current_timesteps) - 1 or ((i + 1) > num_warmup_steps and (i + 1) % self.scheduler.order == 0):
                         progress_bar.update()
                         if callback is not None and i % callback_steps == 0:
                             callback(i, t, latents)
@@ -609,6 +635,10 @@ class AnimationFreeInitPipeline(AnimationPipeline):
                 video = torch.from_numpy(video)
                 os.makedirs(save_dir, exist_ok=True)
                 save_videos_grid(video, f"{save_dir}/{save_name}_iter{iter}.gif")
+            
+            if return_orig and iter==0:
+                orig_video = self.decode_latents(latents)
+                orig_video = torch.from_numpy(orig_video)
 
         # Post-processing
         video = self.decode_latents(latents)
@@ -620,4 +650,7 @@ class AnimationFreeInitPipeline(AnimationPipeline):
         if not return_dict:
             return video
 
-        return AnimationPipelineOutput(videos=video)
+        if return_orig:
+            return AnimationFreeInitPipelineOutput(videos=video, orig_videos=orig_video)
+
+        return AnimationFreeInitPipelineOutput(videos=video)

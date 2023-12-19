@@ -31,22 +31,25 @@ def freq_mix_3d(x, noise, LPF):
     return x_mixed
 
 
-def get_freq_filter(shape, device, params: dict):
+def get_freq_filter(shape, device, filter_type, n, d_s, d_t):
     """
     Form the frequency filter for noise reinitialization.
 
     Args:
         shape: shape of latent (B, C, T, H, W)
-        params: filter parameters
+        filter_type: type of the freq filter
+        n: (only for butterworth) order of the filter, larger n ~ ideal, smaller n ~ gaussian
+        d_s: normalized stop frequency for spatial dimensions (0.0-1.0)
+        d_t: normalized stop frequency for temporal dimension (0.0-1.0)
     """
-    if params.method == "gaussian":
-        return gaussian_low_pass_filter(shape=shape, d_s=params.d_s, d_t=params.d_t).to(device)
-    elif params.method == "ideal":
-        return ideal_low_pass_filter(shape=shape, d_s=params.d_s, d_t=params.d_t).to(device)
-    elif params.method == "box":
-        return box_low_pass_filter(shape=shape, d_s=params.d_s, d_t=params.d_t).to(device)
-    elif params.method == "butterworth":
-        return butterworth_low_pass_filter(shape=shape, n=params.n, d_s=params.d_s, d_t=params.d_t).to(device)
+    if filter_type == "gaussian":
+        return gaussian_low_pass_filter(shape=shape, d_s=d_s, d_t=d_t).to(device)
+    elif filter_type == "ideal":
+        return ideal_low_pass_filter(shape=shape, d_s=d_s, d_t=d_t).to(device)
+    elif filter_type == "box":
+        return box_low_pass_filter(shape=shape, d_s=d_s, d_t=d_t).to(device)
+    elif filter_type == "butterworth":
+        return butterworth_low_pass_filter(shape=shape, n=n, d_s=d_s, d_t=d_t).to(device)
     else:
         raise NotImplementedError
 
