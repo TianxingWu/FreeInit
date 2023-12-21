@@ -474,7 +474,7 @@ class AnimationFreeInitPipeline(AnimationPipeline):
             filter_shape, 
             device=self._execution_device, 
             filter_type=filter_params.method,
-            n=filter_params.n,
+            n=filter_params.n if filter_params.method=="butterworth" else None,
             d_s=filter_params.d_s,
             d_t=filter_params.d_t
         )
@@ -653,4 +653,4 @@ class AnimationFreeInitPipeline(AnimationPipeline):
         if return_orig:
             return AnimationFreeInitPipelineOutput(videos=video, orig_videos=orig_video)
 
-        return AnimationFreeInitPipelineOutput(videos=video)
+        return AnimationPipelineOutput(videos=video)
