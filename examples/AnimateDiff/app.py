@@ -216,7 +216,7 @@ class AnimateController:
 
         vae_scale_factor = 2 ** (len(self.vae.config.block_out_channels) - 1)
 
-        shape = [1, 4, 16, self.set_width//vae_scale_factor, self.set_height//vae_scale_factor]
+        shape = [1, 4, 16, self.set_height//vae_scale_factor, self.set_width//vae_scale_factor]
         self.freq_filter = get_freq_filter(
             shape, 
             device="cuda", 
@@ -254,11 +254,6 @@ class AnimateController:
         if self.selected_base_model != base_model_dropdown: self.update_base_model(base_model_dropdown)
         if self.selected_motion_module != motion_module_dropdown: self.update_motion_module(motion_module_dropdown)
         
-        self.set_width = width_slider
-        self.set_height = height_slider
-        self.selected_filter_type = filter_type_dropdown
-        self.set_d_s = d_s
-        self.set_d_t = d_t
         if self.set_width != width_slider or self.set_height != height_slider or self.selected_filter_type != filter_type_dropdown or self.set_d_s != d_s or self.set_d_t != d_t:
             self.update_filter(width_slider, height_slider, filter_type_dropdown, d_s, d_t)
         
