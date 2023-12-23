@@ -42,7 +42,7 @@ In [freeinit_utils.py](examples/AnimateDiff/animatediff/utils/freeinit_utils.py)
 
 An example inference script is provided at [animate_with_freeinit.py](examples/AnimateDiff/scripts/animate_with_freeinit.py).
 
-Please refer to the above scripts as a reference when intergrating FreeInit into other video diffusion models.
+Please refer to the above scripts as a reference when integrating FreeInit into other video diffusion models.
 
 
 
