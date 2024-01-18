@@ -28,7 +28,8 @@ We propose **FreeInit**, a concise yet effective method to improve temporal cons
 
 
 ## :fire: Updates
-- [12/2023] :fire: We released a demo on [Hugging Face🤗](https://huggingface.co/spaces)! Feel free to try it out: [[demo link]](https://huggingface.co/spaces/TianxingWu/FreeInit) .
+- [01/2024] FreeInit has been integrated into [Diffusers](https://github.com/huggingface/diffusers) and [ComfyUI-AnimateDiff-Evolved](https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved). Big thanks to [@a-r-r-o-w](https://github.com/a-r-r-o-w), [@DN6](https://github.com/DN6) and [@Kosinkadink](https://github.com/Kosinkadink)!
+- [12/2023] We released a demo on [Hugging Face🤗](https://huggingface.co/spaces)! Feel free to try it out: [[demo link]](https://huggingface.co/spaces/TianxingWu/FreeInit).
 - [12/2023] [Arxiv paper](https://arxiv.org/abs/2312.07537) available.
 - [12/2023] Code released.
 - [12/2023] [Project page](https://tianxingwu.github.io/pages/FreeInit/) and [video](https://youtu.be/lS5IYbAqriI) available.
@@ -93,10 +94,15 @@ python app.py
 ```
 Alternatively, you can try the online demo hosted on Hugging Face: [[demo link]](https://huggingface.co/spaces/TianxingWu/FreeInit) .
 
-### :framed_picture: Generation Results
+## :framed_picture: Generation Results
 
 Please refer to our [project page](https://tianxingwu.github.io/pages/FreeInit/) for more visual comparisons.
 
+## :four_leaf_clover: Community Contributions
+
+- Integration to ComfyUI Extention: [ComfyUI-AnimateDiff-Evolved](https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved) (by [@Kosinkadink](https://github.com/Kosinkadink))
+- Integration to HuggingFace Diffusers: [Diffusers](https://github.com/huggingface/diffusers) (by [@a-r-r-o-w](https://github.com/a-r-r-o-w) and [@DN6](https://github.com/DN6))
+- Google Colab: [FreeInit-colab](https://github.com/camenduru/FreeInit-colab) (by [@camenduru](https://github.com/camenduru))
 
 ## :fountain_pen: Citation
 
@@ -113,6 +119,6 @@ Please refer to our [project page](https://tianxingwu.github.io/pages/FreeInit/)
 
 ## :white_heart: Acknowledgement
 
-This project is distributed under the S-Lab License. See `LICENSE` for more information.
+This project is distributed under the MIT License. See `LICENSE` for more information.
 
-The example code is built upon [AnimateDiff](https://github.com/guoyww/AnimateDiff). Thanks the team for their impressive work!
+The example code is built upon [AnimateDiff](https://github.com/guoyww/AnimateDiff). Thanks to the team for their impressive work!
